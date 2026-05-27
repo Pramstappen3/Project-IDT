@@ -1,14 +1,14 @@
 #pragma once
-
 /*
  * PIDController.h
  * Standard PID with anti-windup clamping
+ * Kp=8.0  main response strength
+ * Ki=0.05 slow drift correction
+ * Kd=1.2  smooths sudden changes
  */
-
 #include "Arduino.h"
 
 struct PIDController {
-
     float kp = 0, ki = 0, kd = 0;
     float setpoint    =  0.0f;
     float integral    =  0.0f;
