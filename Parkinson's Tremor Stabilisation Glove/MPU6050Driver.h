@@ -125,4 +125,4 @@ public:
                    (s.gyroMag  > TREMOR_GYRO_THRESH ||
                     s.accelDev > TREMOR_ACCEL_THRESH);
     }
-};
+}; //test
