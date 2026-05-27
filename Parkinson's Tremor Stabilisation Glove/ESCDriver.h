@@ -102,4 +102,3 @@ private:
     int     _currentUS = ESC_MIN_US;
     bool    _armed     = false;
 };
-//Test
