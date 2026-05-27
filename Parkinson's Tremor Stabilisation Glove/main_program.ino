@@ -200,7 +200,7 @@ void setup() {
     // Kp=8.0  main response strength
     // Ki=0.05 slow drift correction (keep small)
     // Kd=1.2  smooths sudden motor changes
-    pid.init(8.0f, 0.05f, 1.2f);
+    pid.init(15.0f, 0.05f, 1.2f);  // Kp raised for A2212 1400KV at 3.7V
 
     Serial.println("[SYSTEM] Running. Watching for hand movement...");
     Serial.println("--------------------------------------------------");
@@ -292,11 +292,13 @@ void loop() {
             Serial.print(" Hz");
             // Tag if frequency is in Parkinson's range (4–8 Hz)
             if (tremorFreqHz >= 4.0f && tremorFreqHz <= 8.0f) {
-                Serial.print(" [Parkinson range]");
+                Serial.print(" [Parkinson range]");      // 4.0–8.0 Hz confirmed
             } else if (tremorFreqHz > 8.0f) {
-                Serial.print(" [above range]");
+                Serial.print(" [above range]");           // >8 Hz essential tremor
+            } else if (tremorFreqHz >= 2.0f) {
+                Serial.print(" [low — shake faster]");   // 2–4 Hz borderline
             } else {
-                Serial.print(" [below range]");
+                Serial.print(" [measuring...]");          // too few crossings yet
             }
         } else {
             Serial.print("--      ");
