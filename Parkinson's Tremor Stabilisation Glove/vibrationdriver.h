@@ -41,7 +41,7 @@
 
 // ── Pin assignments ───────────────────────────────────────
 static constexpr uint8_t MOTOR_COUNT = 5;
-static constexpr uint8_t MOTOR_PINS[MOTOR_COUNT] = {1, 2, 3, 4, 5};
+static constexpr uint8_t MOTOR_PINS[MOTOR_COUNT] = {2, 3, 4, 5, 10};
 
 // ── LEDC config ───────────────────────────────────────────
 static constexpr uint32_t VIB_LEDC_FREQ_HZ    = 2000;
