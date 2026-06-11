@@ -41,7 +41,7 @@
 
 // ── Pin assignments ───────────────────────────────────────
 static constexpr uint8_t MOTOR_COUNT = 5;
-static constexpr uint8_t MOTOR_PINS[MOTOR_COUNT] = {2, 3, 4, 5, 10};
+static constexpr uint8_t MOTOR_PINS[MOTOR_COUNT] = {2, 3, 4, 5, 0};
 
 // ── LEDC config ───────────────────────────────────────────
 static constexpr uint32_t VIB_LEDC_FREQ_HZ    = 2000;
@@ -124,11 +124,11 @@ public:
 
     // Turn off all motors immediately (emergency stop)
     void allOff() {
-        for (uint8_t i = 0; i < MOTOR_COUNT; i++) {
-            ledcWrite(i, VIB_OFF_DUTY);
-            _duty[i] = VIB_OFF_DUTY;
-        }
+    for (uint8_t i = 0; i < MOTOR_COUNT; i++) {
+        ledcWrite(MOTOR_PINS[i], VIB_OFF_DUTY); // Fixed: Pass the GPIO pin, not 'i'
+        _duty[i] = VIB_OFF_DUTY;
     }
+}
 
     int  currentDuty(uint8_t motor = 0) const {
         if (motor >= MOTOR_COUNT) return 0;
