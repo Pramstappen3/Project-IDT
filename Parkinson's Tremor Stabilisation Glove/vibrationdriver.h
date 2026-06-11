@@ -63,19 +63,20 @@ class VibrationDriver {
 public:
 
     // Call once in setup() — no arming needed
+   // Call once in setup() — updated for ESP32 Arduino Core v3.0+
     void begin() {
         for (uint8_t i = 0; i < MOTOR_COUNT; i++) {
-            ledcSetup(i, VIB_LEDC_FREQ_HZ, VIB_LEDC_RESOLUTION);
-            ledcAttachPin(MOTOR_PINS[i], i);
-            ledcWrite(i, VIB_OFF_DUTY);
+            // New v3.0+ API: ledcAttach replaces both ledcSetup and ledcAttachPin
+            ledcAttach(MOTOR_PINS[i], VIB_LEDC_FREQ_HZ, VIB_LEDC_RESOLUTION);
+            
+            ledcWrite(MOTOR_PINS[i], VIB_OFF_DUTY);
             _duty[i] = VIB_OFF_DUTY;
 
             Serial.print("[VIB] Motor ");
             Serial.print(i);
             Serial.print(" → GPIO");
             Serial.print(MOTOR_PINS[i]);
-            Serial.print("  LEDC ch");
-            Serial.println(i);
+            Serial.println(" initialized with LEDC.");
         }
         Serial.println("[VIB] All 5 motors ready.");
     }
